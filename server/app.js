@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
@@ -80,7 +79,7 @@ io.on('connection', (socket) => {
     console.log('a user connected')
     socket.on('getQuestion', () => {
         console.log('ini get questionnya');
-        let question = questions[10]
+        let question = questions[1]
         io.emit('getQuestion', question)
     })
 

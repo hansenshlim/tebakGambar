@@ -22,7 +22,6 @@ export default {
       answer: '',
       image: '',
       users: []
-
     }
   },
   methods: {
@@ -35,19 +34,15 @@ export default {
   },
   created () {
     this.fetchDataImage()
+        console.log(this.users)
   },
   sockets: {
     getQuestion (question) {
       this.image = question
-    }
-  },
-  sockets: {
+    },
     onlineUser (data) {
       this.users = data
     }
-  },
-  created () {
-    console.log(this.users)
   }
 
 }
