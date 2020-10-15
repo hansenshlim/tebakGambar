@@ -27,6 +27,12 @@ export default {
   methods: {
     sendAnswer () {
       console.log(`ini method ngirim jawaban : "${this.answer}"`)
+      let payload = {
+        id: this.image.id,
+        answer: this.answer
+      }
+      this.$socket.emit('checkAnswer', payload)
+      this.answer = ''
     },
     fetchDataImage () {
       this.$socket.emit('getQuestion')
@@ -34,7 +40,7 @@ export default {
   },
   created () {
     this.fetchDataImage()
-        console.log(this.users)
+    console.log(this.users)
   },
   sockets: {
     getQuestion (question) {
@@ -42,7 +48,8 @@ export default {
     },
     onlineUser (data) {
       this.users = data
-    }
+    },
+    
   }
 
 }

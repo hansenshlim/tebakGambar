@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
     console.log('a user connected')
     socket.on('getQuestion', () => {
         console.log('ini get questionnya');
-        let question = questions[1]
+        let question = questions[Math.floor(Math.random() * questions.length)]
         io.emit('getQuestion', question)
     })
 
@@ -87,6 +87,17 @@ io.on('connection', (socket) => {
         users.push(username)
 
         io.emit('onlineUser', (users))
+    })
+
+    socket.on('checkAnswer', (payload) => {
+        console.log('ini Answernya');
+        let output = questions.find(el => el.answer === payload.answer)
+        console.log(output)
+        if(!output || output.id !== payload.id) {
+            console.log('salah');
+          } else {
+            console.log('benar');
+          }
     })
 })
 
