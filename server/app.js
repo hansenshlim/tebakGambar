@@ -15,7 +15,6 @@ io.on('connection', (socket) => {
     console.log('a user connected')
 
     socket.on('user-connect', (username) => {
-        // console.log(data)
         users.push(username)
 
         io.emit('onlineUser', (users))
