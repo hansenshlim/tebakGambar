@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
@@ -67,6 +68,10 @@ const questions = [
 
 const answer = []
 
+
+let users = []
+
+
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -77,6 +82,12 @@ io.on('connection', (socket) => {
         console.log('ini get questionnya');
         let question = questions[10]
         io.emit('getQuestion', question)
+    })
+
+    socket.on('user-connect', (username) => {
+        users.push(username)
+
+        io.emit('onlineUser', (users))
     })
 })
 

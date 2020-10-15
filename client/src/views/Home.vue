@@ -20,7 +20,9 @@ export default {
   data() {
     return {
       answer: '',
-      image: ''
+      image: '',
+      users: []
+
     }
   },
   methods: {
@@ -38,6 +40,14 @@ export default {
     getQuestion (question) {
       this.image = question
     }
+  },
+  sockets: {
+    onlineUser (data) {
+      this.users = data
+    }
+  },
+  created () {
+    console.log(this.users)
   }
 
 }

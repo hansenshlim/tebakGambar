@@ -5,17 +5,32 @@
             <form @submit.prevent="login">
                 <div class="form-group">
                     <label for="login-username">Enter Your Username:</label>
-                    <input v-model="username" type="username" class="form-control" id="login-username">
+                    <input v-model="username" type="text" class="form-control" id="login-username">
                 </div>
                 <button type="submit" class="btn btn-primary">Join Game</button>
-            </form><br>
+            </form>
         </div>
     </section>
 </template>
 
 <script>
 export default {
-    name: 'LoginPage'
+    name: 'LoginPage',
+    data() {
+        return {
+            username: ''
+        }
+    },
+    methods: {
+        login () {
+            let payload = {
+                username: this.username
+            }
+            this.$socket.emit('user-connect', payload)
+            localStorage.setItem('username', this.username)
+            this.$router.push({ name: 'Home' })
+        }
+    }
 }
 </script>
 
