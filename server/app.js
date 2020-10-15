@@ -95,8 +95,11 @@ io.on('connection', (socket) => {
         console.log(output)
         if(!output || output.id !== payload.id) {
             console.log('salah');
+            socket.emit('wrongAnswer')
           } else {
             console.log('benar');
+            socket.broadcast.emit('wrongAnswer')
+            socket.emit('rightAnswer')
           }
     })
 })
