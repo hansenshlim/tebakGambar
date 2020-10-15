@@ -44,9 +44,7 @@ export default {
       this.answer = ''
     },
     fetchDataImage () {
-      if(this.users.length >= 1) {
         this.$socket.emit('getQuestion')
-      }
     }
   },
   created () {
