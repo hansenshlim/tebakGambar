@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <div v-if="!status">
+    <div v-if="!status && users.length > 1">
     <h1 >Guess the Picture Below</h1>
     <img :src="image.image_url" alt="waiting for others"
     width="540" height="300"><br>
@@ -11,9 +11,14 @@
     </div>
     <div v-else-if="status == 'wrong'">
     <h3 >You Lose</h3>
+      <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
     </div>
     <div v-else-if="status == 'right'">
     <h3 >You Win</h3>
+        <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
+    </div>
+    <div v-else-if="users.length <= 1">
+    <h3>Waiting for others</h3>
     </div>
   </section>
 </template>
@@ -45,6 +50,10 @@ export default {
     },
     fetchDataImage () {
         this.$socket.emit('getQuestion')
+    },
+    toLogin () {
+      this.users = []
+      this.$router.push({name: 'LoginPage'})
     }
   },
   created () {

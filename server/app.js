@@ -96,8 +96,10 @@ io.on('connection', (socket) => {
         if(!output || output.id !== payload.id) {
             console.log('salah');
             socket.emit('wrongAnswer')
+            users = []
           } else {
             console.log('benar');
+            users = []
             socket.broadcast.emit('wrongAnswer')
             socket.emit('rightAnswer')
           }
