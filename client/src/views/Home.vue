@@ -19,13 +19,22 @@ export default {
   },
   data() {
     return {
-      answer: ''
+      answer: '',
+      users: []
     }
   },
   methods: {
     sendAnswer () {
       console.log(`ini method ngirim jawaban : "${this.answer}"`)
     }
+  },
+  sockets: {
+    onlineUser (data) {
+      this.users = data
+    }
+  },
+  created () {
+    console.log(this.users)
   }
 }
 </script>
