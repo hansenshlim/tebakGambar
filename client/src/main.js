@@ -7,7 +7,7 @@ import store from './store'
 Vue.config.productionTip = false
 
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: false,
   connection: 'http://localhost:3000',
   vuex: {
     store,
