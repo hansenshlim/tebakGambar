@@ -12,6 +12,9 @@
     <button type="submit" class="btn btn-info mt-3">Answer!</button>
     </form>
     </div>
+    <div v-else-if="users.length <= 1">
+    <h3 class="mt-5">Waiting for others</h3>
+    </div>
     <div v-else-if="status == 'wrong'">
     <h3 class="mt-5">You Lose</h3>
       <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
@@ -20,9 +23,7 @@
     <h3 class="mt-5">You Win</h3>
         <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
     </div>
-    <div v-else-if="users.length <= 1">
-    <h3 class="mt-5">Waiting for others</h3>
-    </div>
+    
   </section>
 </template>
 
@@ -38,10 +39,18 @@ export default {
   data() {
     return {
       answer: '',
-      image: '',
-      users: [],
-      status: '',
       user: ''
+    }
+  },
+  computed: {
+    image () {
+      return this.$store.state.image
+    },
+    status () {
+      return this.$store.state.status
+    },
+    users () {
+      return this.$store.state.users
     }
   },
   methods: {
@@ -55,31 +64,17 @@ export default {
       this.answer = ''
     },
     fetchDataImage () {
+        this.$store.state.status = ''
         this.$socket.emit('getQuestion')
     },
     toLogin () {
-      this.users = []
+      this.$store.state.users = []
       this.$router.push({name: 'LoginPage'})
     }
   },
   created () {
       this.user = localStorage.username
       this.fetchDataImage()
-  },
-  sockets: {
-    getQuestion (question) {
-      this.image = question
-    },
-    onlineUser (data) {
-      this.users = data
-    },
-    wrongAnswer () {
-      this.status = 'wrong'
-    },
-    rightAnswer () {
-      this.status = 'right'
-    }
-    
   }
 
 }
