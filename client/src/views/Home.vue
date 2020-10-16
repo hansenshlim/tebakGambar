@@ -64,18 +64,18 @@ export default {
       this.answer = ''
     },
     fetchDataImage () {
-        this.$store.state.status = ''
+        this.$store.commit('changeStatus')
         this.$socket.emit('getQuestion')
     },
     toLogin () {
-      this.$store.state.users = []
+      this.$store.commit('emptyUsers')
       this.$router.push({name: 'LoginPage'})
     }
   },
   created () {
       this.user = localStorage.username
       this.fetchDataImage()
-  }
+  },
 
 }
 </script>

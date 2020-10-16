@@ -21,6 +21,12 @@ export default new Vuex.Store({
     },
     'SOCKET_ONLINE_USER' (state, payload) {
       state.users = payload
+    },
+    changeStatus(state) {
+      state.status = ''
+    },
+    emptyUsers(state) {
+      state.users = []
     }
   },
   actions: {
