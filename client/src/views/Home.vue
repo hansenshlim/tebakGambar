@@ -1,7 +1,14 @@
 <template>
   <section class="home">
+    <header class="d-flex justify-content-between align-content-center bg-dark" style="color: white; padding: 20px">
+      <h3>Me : {{user}}</h3>
+      <div>
+      <h5>Playing:<span v-for="(user,idx) in users" :key="idx" class="ml-3">{{user.username}},</span>
+      </h5>
+      </div>
+    </header>
     <div v-if="!status && users.length > 1">
-    <h1 >Guess the Picture Below</h1>
+    <h1 class="mt-5">Guess the Picture Below</h1>
     <img :src="image.image_url" alt="waiting for others"
     width="540" height="300"><br>
     <form @submit.prevent="sendAnswer"> <br>
@@ -10,15 +17,15 @@
     </form>
     </div>
     <div v-else-if="status == 'wrong'">
-    <h3 >You Lose</h3>
+    <h3 class="mt-5">You Lose</h3>
       <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
     </div>
     <div v-else-if="status == 'right'">
-    <h3 >You Win</h3>
+    <h3 class="mt-5">You Win</h3>
         <button @click.prevent="toLogin" class="btn btn-primary mt-3">Play Again</button>
     </div>
     <div v-else-if="users.length <= 1">
-    <h3>Waiting for others</h3>
+    <h3 class="mt-5">Waiting for others</h3>
     </div>
   </section>
 </template>
@@ -35,7 +42,8 @@ export default {
       answer: '',
       image: '',
       users: [],
-      status: ''
+      status: '',
+      user: ''
     }
   },
   methods: {
@@ -57,6 +65,7 @@ export default {
     }
   },
   created () {
+      this.user = localStorage.username
       this.fetchDataImage()
   },
   sockets: {
