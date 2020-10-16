@@ -1,12 +1,8 @@
 <template>
   <section class="home">
-    <header class="d-flex justify-content-between align-content-center bg-dark" style="color: white; padding: 20px">
-      <h3>Me : {{user}}</h3>
-      <div>
-      <h5>Playing:<span v-for="(user,idx) in users" :key="idx" class="ml-3">{{user.username}},</span>
-      </h5>
-      </div>
-    </header>
+    <StatusBar
+      :users="users"
+    />
     <div v-if="!status && users.length > 1">
     <h1 class="mt-5">Guess the Picture Below</h1>
     <img :src="image.image_url" alt="waiting for others"
@@ -32,10 +28,12 @@
 
 <script>
 // @ is an alias to /src
+import StatusBar from '../components/StatusBar'
 
 export default {
   name: 'Home',
   components: {
+    StatusBar
   },
   data() {
     return {
