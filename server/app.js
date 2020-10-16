@@ -80,13 +80,13 @@ io.on('connection', (socket) => {
     socket.on('getQuestion', () => {
         console.log('ini get questionnya');
         let question = questions[Math.floor(Math.random() * questions.length)]
-        io.emit('getQuestion', question)
+        io.emit('GET_QUESTION', question)
     })
 
     socket.on('user-connect', (username) => {
         users.push(username)
 
-        io.emit('onlineUser', (users))
+        io.emit('ONLINE_USER', (users))
     })
 
     socket.on('checkAnswer', (payload) => {
@@ -95,13 +95,13 @@ io.on('connection', (socket) => {
         console.log(output)
         if(!output || output.id !== payload.id) {
             console.log('salah');
-            socket.emit('wrongAnswer')
             users = []
+            socket.emit('WRONG_ANSWER')
           } else {
             console.log('benar');
             users = []
-            socket.broadcast.emit('wrongAnswer')
-            socket.emit('rightAnswer')
+            socket.broadcast.emit('WRONG_ANSWER')
+            socket.emit('RIGHT_ANSWER')
           }
     })
 })
