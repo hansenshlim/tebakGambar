@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Login Page</title>
+</head>
+<body>
+    <section id="login-page" class="row justify-content-center mt-5">
+        <div class="col-4 shadow-lg p-3 bg-white rounded">
+            <h1 style="text-align: center;">Tebak Gambar</h1>
+            <form @submit.prevent="login">
+                <div class="form-group">
+                    <label for="login-username">Enter Username:</label>
+                    <input v-model="username" type="username" class="form-control" id="login-username">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Join Game</button>
+            </form><br>
+        </div>
+    </section>
+</body>
+</html>
+<style>
+    body{
+        background-image: url('https://cdn5.vectorstock.com/i/1000x1000/21/09/school-education-seamless-background-vector-1442109.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+</style>
