@@ -77,10 +77,14 @@ app.use(express.json())
 
 io.on('connection', (socket) => {
     console.log('a user connected')
-    socket.on('getQuestion', () => {
-        console.log('ini get questionnya');
+    socket.on('getQuestion', (status) => {
+        // console.log('ini get questionnya');
         let question = questions[Math.floor(Math.random() * questions.length)]
-        io.emit('GET_QUESTION', question)
+        if(!status) {
+            io.emit('GET_QUESTION', question)
+        }else if(status == 'right') {
+            io.emit('GET_QUESTION', question)
+        }
     })
 
     socket.on('user-connect', (username) => {
@@ -90,18 +94,24 @@ io.on('connection', (socket) => {
     })
 
     socket.on('checkAnswer', (payload) => {
-        console.log('ini Answernya');
+        // console.log('ini Answernya');
         let output = questions.find(el => el.answer === payload.answer)
-        console.log(output)
+        // console.log(output)
         if(!output || output.id !== payload.id) {
-            console.log('salah');
+            // console.log('salah');
             users = []
             socket.emit('WRONG_ANSWER')
           } else {
-            console.log('benar');
-            users = []
-            socket.broadcast.emit('WRONG_ANSWER')
-            socket.emit('RIGHT_ANSWER')
+            // console.log('benar');
+            if (payload.point < 3) {
+                socket.broadcast.emit('WRONG_ANSWER')
+                socket.emit('RIGHT_ANSWER')
+            } else {
+                socket.broadcast.emit('LOSE_CONDITION')
+                socket.emit('WIN_CONDITION')
+                users = []
+            }
+        
           }
     })
 })
